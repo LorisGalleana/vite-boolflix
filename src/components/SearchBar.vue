@@ -1,6 +1,13 @@
 <script>
+import { store } from '../store';
+
     export default {
         name: 'SearchBar',
+        data() {
+            return {
+                store,
+            }
+        }
             
     }
 </script>
@@ -8,8 +15,7 @@
 
 <template>
   <div class="search-container">
-        <input type="search" name="" id="" class="search-input">
-        <button class="searc-button">CERCA</button>
+        <input type="search" class="search-input" v-model="store.searchFilm" placeholder="Cerca...">
         
   </div>
     
@@ -19,9 +25,7 @@
 <style scoped lang="scss">
 @use '../style/partials/variable' as *;
 
-.search-container {
-    width: 20%;
-}
+
 .search-input {
     margin-right: 2%;
     outline: none;

@@ -34,7 +34,7 @@ import { store } from '../store';
 @use '../style/partials/variable' as *;
 
 .page-container {
-    height: 1000px;
+    height: 100%;
     width: 100%;
     background-color: $main-bg-color;
 }
@@ -42,7 +42,6 @@ import { store } from '../store';
     display: flex;
     justify-content: center;
     padding: 50px;
-    font-size: 36px;
     font-weight: bold;
     color: white;
 }

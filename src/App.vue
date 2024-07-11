@@ -1,12 +1,12 @@
 <script >
-import axios from 'axios'
+
 
 import UpperBar from './components/UpperBar.vue'
 import MainPage from './components/MainPage.vue';
 
 
 //import dello store
-import { store } from './store';
+import { store, getFilms } from './store';
 
 
 export default {
@@ -20,18 +20,11 @@ export default {
       store,
     }
   },
+  watch: {
+        'store.searchFilm': 'getFilms'
+    },
   methods: {
-    getFilms() {
-      axios.
-        get(store.filmURL)
-        .then(res => {
-          console.log(res.data.results);
-          store.filmsList = res.data.results;
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
+    getFilms
   },
   created() {
     this.getFilms();

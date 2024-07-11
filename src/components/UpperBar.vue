@@ -1,10 +1,23 @@
 <script>
 import SearchBar from './SearchBar.vue';
 
+import { store, getFilms } from '../store';
+
     export default {
         name: 'UpperBar',
         components: {
             SearchBar,
+        },
+        data() {
+            return {
+                store,
+            }
+        },
+        methods: {
+            getFilms
+        },
+        created() {
+            this.getFilms();
         }
             
     }
@@ -16,7 +29,7 @@ import SearchBar from './SearchBar.vue';
         <div class="title">
             BOOLFLIX
         </div>
-        <SearchBar  />
+        <SearchBar @search="getFilms" />
   </div>
     
 </template>
