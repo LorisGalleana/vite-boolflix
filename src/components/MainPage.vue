@@ -1,7 +1,7 @@
 <script>
 
 import FilmContainer from './FilmContainer.vue';
-import TvSeriesContainer from './TvSeriesContainer.vue';
+import TvseriesContainer from './TvseriesContainer.vue';
 
 //import dello store
 import { store } from '../store';
@@ -11,7 +11,7 @@ import { store } from '../store';
         name: 'MainPage',
         components: {
             FilmContainer,
-            TvSeriesContainer
+            TvseriesContainer
         },
         data() {
             return {
@@ -26,8 +26,9 @@ import { store } from '../store';
 <template>
   <div class="page-container">
         <div class="films">
-            <FilmContainer  />
-            <TvSeriesContainer  />
+            <TvseriesContainer  />
+            <!-- <FilmContainer  />
+            <TvSeriesContainer  /> -->
         </div>
   </div>
     

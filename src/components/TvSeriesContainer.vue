@@ -1,14 +1,14 @@
 <script>
-import TvSeriesCard from './TvSeriesCard.vue';
+import TvseriesCard from './TvseriesCard.vue';
 
 //import dello store
 import { store } from '../store';
 
 
     export default {
-        name: 'TvSeriesContainer',
+        name: 'TvseriesContainer',
         components: {
-            TvSeriesCard,
+            TvseriesCard,
         },
         data() {
             return {
@@ -23,7 +23,7 @@ import { store } from '../store';
 <template>
   <div class="series-container">
         <div class="series" v-for="tv in store.tvSeriesList" :key="tv.id" v-if="store.searchContent !== '' " >
-            <TvSeriesCard :info="tv" />
+            <TvseriesCard :info="tv" />
         </div>
         
   </div>
@@ -34,13 +34,13 @@ import { store } from '../store';
 <style scoped lang="scss">
 @use '../style/partials/variable' as *;
 
-.film-container {
+.series-container {
     color: white;
     
     display: flex;
     flex-wrap: wrap;
 }
-.film {
+.series {
     width: calc(100% / 4);
     padding: 0 5px 50px;
 }

@@ -29,11 +29,11 @@
 <style scoped lang="scss">
 @use '../style/partials/variable' as *;
 
-.film-title {
+.tv-series-title {
     color: white;
     font-size: 24px;
 }
-.film-card {
+.tv-series-card {
     text-align: center;
     display: flex;
     flex-direction: column;
