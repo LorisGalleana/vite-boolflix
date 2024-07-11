@@ -1,14 +1,14 @@
 <script>
-import FilmCard from './FilmCard.vue';
+import TvSeriesCard from './TvSeriesCard.vue';
 
 //import dello store
 import { store } from '../store';
 
 
     export default {
-        name: 'FilmContainer',
+        name: 'TvSeriesContainer',
         components: {
-            FilmCard,
+            TvSeriesCard,
         },
         data() {
             return {
@@ -21,11 +21,11 @@ import { store } from '../store';
 
 
 <template>
-  <div class="film-container">
-        <div class="film" v-for="film in store.filmsList" :key="film.id" v-if="store.searchContent !== '' " >
-            <FilmCard :info="film" />
+  <div class="series-container">
+        <div class="series" v-for="tv in store.tvSeriesList" :key="tv.id" v-if="store.searchContent !== '' " >
+            <TvSeriesCard :info="tv" />
         </div>
-        <div v-else class="empty">COSA VUOI VEDERE OGGI?</div>
+        
   </div>
     
 </template>

@@ -8,7 +8,7 @@ export const store = reactive({
     queryTvUrl:"https://api.themoviedb.org/3/search/movie?query=",
     apiKey:"api_key=43c9d549239b8a34c26493205a7c00a7",
     language:"language=it",
-    searchFilm: "",
+    searchContent: "",
     
 })
 
@@ -18,8 +18,8 @@ export const store = reactive({
 export function getFilms() {
     let endPointMovie = ""
 
-    if (store.searchFilm !== "") {
-         endPointMovie = `${store.queryFilmUrl}${store.searchFilm}&${store.apiKey}&${store.language}`;
+    if (store.searchContent !== "") {
+         endPointMovie = `${store.queryFilmUrl}${store.searchContent}&${store.apiKey}&${store.language}`;
     }
 
     axios.
@@ -31,4 +31,23 @@ export function getFilms() {
       .catch(err => {
         console.log(err)
       })
-  }
+}
+
+
+export function getTvSeries() {
+    let endPointTvSeries = ""
+
+    if (store.searchContent !== "") {
+        endPointTvSeries = `${store.queryTvUrl}${store.searchContent}&${store.apiKey}&${store.language}`;
+    }
+
+    axios.
+      get(endPointTvSeries)
+      .then(res => {
+        console.log(res.data.results);
+        store.filmsList = res.data.results;
+      })
+      .catch(err => {
+        console.log(err)
+      })
+}

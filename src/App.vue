@@ -6,7 +6,7 @@ import MainPage from './components/MainPage.vue';
 
 
 //import dello store
-import { store, getFilms } from './store';
+import { store, getFilms, getTvSeries } from './store';
 
 
 export default {
@@ -21,13 +21,19 @@ export default {
     }
   },
   watch: {
-        'store.searchFilm': 'getFilms'
+      'store.searchContent': 'getFilms',
+      'store.searchContent': 'getTvSeries'
     },
   methods: {
-    getFilms
+    getFilms,
+    getTvSeries,
+    searchAll() {
+      this.getFilms();
+      this.getTvSeries();
+    }
   },
   created() {
-    this.getFilms();
+    this.searchAll
   }
 }
 </script>

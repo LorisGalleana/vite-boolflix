@@ -1,14 +1,17 @@
 <script>
 
 import FilmContainer from './FilmContainer.vue';
+import TvSeriesContainer from './TvSeriesContainer.vue';
 
 //import dello store
 import { store } from '../store';
+
 
     export default {
         name: 'MainPage',
         components: {
             FilmContainer,
+            TvSeriesContainer
         },
         data() {
             return {
@@ -24,6 +27,7 @@ import { store } from '../store';
   <div class="page-container">
         <div class="films">
             <FilmContainer  />
+            <TvSeriesContainer  />
         </div>
   </div>
     

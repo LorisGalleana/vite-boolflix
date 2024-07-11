@@ -15,7 +15,7 @@ import { store } from '../store';
 
 <template>
   <div class="search-container">
-        <input type="search" class="search-input" v-model="store.searchFilm" placeholder="Cerca...">
+        <input type="search" class="search-input" v-model="store.searchContent" placeholder="Cerca...">
         
   </div>
     

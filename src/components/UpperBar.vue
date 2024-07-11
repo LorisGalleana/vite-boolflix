@@ -1,7 +1,7 @@
 <script>
 import SearchBar from './SearchBar.vue';
 
-import { store, getFilms } from '../store';
+import { store, getFilms, getTvSeries } from '../store';
 
     export default {
         name: 'UpperBar',
@@ -14,10 +14,15 @@ import { store, getFilms } from '../store';
             }
         },
         methods: {
-            getFilms
+            getFilms,
+            getTvSeries,
+            searchAll() {
+                this.getFilms();
+                this.getTvSeries();
+            }
         },
         created() {
-            this.getFilms();
+            this.searchAll
         }
             
     }
@@ -29,7 +34,7 @@ import { store, getFilms } from '../store';
         <div class="title">
             BOOLFLIX
         </div>
-        <SearchBar @search="getFilms" />
+        <SearchBar @search="searchAll"  />
   </div>
     
 </template>
