@@ -21,8 +21,9 @@ export default {
     }
   },
   watch: {
-      'store.searchContent': 'getFilms',
-      'store.searchContent': 'getTvSeries'
+      'store.searchContent': function () {
+        this.searchAll()
+      }
     },
   methods: {
     getFilms,
@@ -33,7 +34,7 @@ export default {
     }
   },
   created() {
-    this.searchAll
+    this.searchAll()
   }
 }
 </script>

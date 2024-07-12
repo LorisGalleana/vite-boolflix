@@ -7,17 +7,20 @@ import { store } from '../store';
             return {
                 store,
             }
+        },
+        methods: {
+            emitSearch() {
+            this.$emit('search');
+            }
         }
-            
     }
 </script>
 
 
 <template>
   <div class="search-container">
-        <input type="search" class="search-input" v-model="store.searchContent" placeholder="Cerca...">
-        
-  </div>
+        <input type="search" class="search-input" v-model="store.searchContent" placeholder="Cerca..." @keyup.enter="emitSearch" >
+    </div>
     
 </template>
 

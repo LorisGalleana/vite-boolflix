@@ -22,9 +22,8 @@ import { store, getFilms, getTvSeries } from '../store';
             }
         },
         created() {
-            this.searchAll
-        }
-            
+            this.searchAll();
+        },
     }
 </script>
 

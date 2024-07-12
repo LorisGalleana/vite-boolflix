@@ -9,6 +9,7 @@ export const store = reactive({
     apiKey:"api_key=43c9d549239b8a34c26493205a7c00a7",
     language:"language=it",
     searchContent: "",
+    posterIMG: "https://image.tmdb.org/t/p/w342/"
     
 })
 
@@ -16,11 +17,13 @@ export const store = reactive({
 
 
 export function getFilms() {
-    let endPointMovie = ""
-
-    if (store.searchContent !== "") {
-         endPointMovie = `${store.queryFilmUrl}${store.searchContent}&${store.apiKey}&${store.language}`;
+    if (store.searchContent === "") {
+        store.filmsList = [];
+        return;
     }
+    
+    const endPointMovie = `${store.queryFilmUrl}${store.searchContent}&${store.apiKey}&${store.language}`;
+        
 
     axios.
       get(endPointMovie)
@@ -30,24 +33,54 @@ export function getFilms() {
       })
       .catch(err => {
         console.log(err)
+        store.filmsList = [];
       })
 }
 
 
 export function getTvSeries() {
-    let endPointTvSeries = ""
-
-    if (store.searchContent !== "") {
-        endPointTvSeries = `${store.queryTvUrl}${store.searchContent}&${store.apiKey}&${store.language}`;
+    if (store.searchContent === "") {
+        store.tvSeriesList = [];
+        return;
     }
+    
+    const endPointTvSeries = `${store.queryTvUrl}${store.searchContent}&${store.apiKey}&${store.language}`;
+    
 
     axios.
       get(endPointTvSeries)
       .then(res => {
-        console.log(res.data.results);
-        store.filmsList = res.data.results;
+        console.log('API Response:', res.data.results);
+        store.tvSeriesList = res.data.results ;
+        console.log('Updated tvSeriesList:', store.tvSeriesList);
       })
       .catch(err => {
-        console.log(err)
+        console.log('API Error:', err);
+        store.tvSeriesList = [];
       })
+}
+
+export function convertLanguage(langCode) {
+  switch (langCode) {
+      case 'en':
+      return 'gb'; // Inglese
+      case 'fr':
+      return 'fr'; // Francese
+      case 'es':
+      return 'es'; // Spagnolo
+      case 'it':
+      return 'it'; // Italiano
+      case 'de':
+      return 'de'; // Tedesco
+      case 'pt':
+      return 'pt'; // Portoghese
+      case 'zh':
+      return 'cn'; // Cinese
+      case 'ja':
+      return 'jp'; // Giapponese
+      case 'ko':
+      return 'kr'; // Coreano
+      default:
+      return langCode;
+  }
 }

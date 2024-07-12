@@ -21,8 +21,13 @@ import { store } from '../store';
 
 
 <template>
+    <div class="film-found" v-if="store.searchContent !== '' ">
+        FILM TROVATI:
+    </div>
   <div class="film-container">
+    
         <div class="film" v-for="film in store.filmsList" :key="film.id" v-if="store.searchContent !== '' " >
+            
             <FilmCard :info="film" />
         </div>
         <div v-else class="empty">COSA VUOI VEDERE OGGI?</div>
@@ -36,7 +41,7 @@ import { store } from '../store';
 
 .film-container {
     color: white;
-    
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
 }
@@ -46,6 +51,11 @@ import { store } from '../store';
 }
 .empty {
     font-size: 24px;
+}
+.film-found {
+    margin-bottom: 2%;
+    font-size: 24px;
+    color: red;
 }
 
 

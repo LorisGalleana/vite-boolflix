@@ -26,9 +26,8 @@ import { store } from '../store';
 <template>
   <div class="page-container">
         <div class="films">
+            <FilmContainer  />
             <TvseriesContainer  />
-            <!-- <FilmContainer  />
-            <TvSeriesContainer  /> -->
         </div>
   </div>
     
@@ -39,12 +38,14 @@ import { store } from '../store';
 @use '../style/partials/variable' as *;
 
 .page-container {
+    min-height: 100vh;
     height: 100%;
     width: 100%;
     background-color: $main-bg-color;
 }
 .films {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     padding: 50px;
     font-weight: bold;

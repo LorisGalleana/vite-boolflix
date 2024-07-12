@@ -14,20 +14,22 @@ import { store } from '../store';
             return {
                 store,
             }
-        }
+        },
+        
                    
     }
 </script>
 
 
 <template>
+    <div class="tv-seriers-found" v-if="store.searchContent !== '' ">
+        SERIE TV TROVATE:
+    </div>
   <div class="series-container">
-        <div class="series" v-for="tv in store.tvSeriesList" :key="tv.id" v-if="store.searchContent !== '' " >
-            <TvseriesCard :info="tv" />
-        </div>
-        
-  </div>
-    
+    <div class="series" v-for="tv in store.tvSeriesList" :key="tv.id"  >
+        <TvseriesCard :infotv="tv" />
+    </div>   
+  </div>  
 </template>
 
 
@@ -36,7 +38,7 @@ import { store } from '../store';
 
 .series-container {
     color: white;
-    
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
 }
@@ -46,6 +48,11 @@ import { store } from '../store';
 }
 .empty {
     font-size: 24px;
+}
+.tv-seriers-found {
+    margin-bottom: 2%;
+    font-size: 24px;
+    color: red;
 }
 
 
