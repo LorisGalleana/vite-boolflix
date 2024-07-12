@@ -32,6 +32,8 @@ import { store } from '../store';
 .search-input {
     margin-right: 2%;
     outline: none;
+    padding: 5px;
+    font-size: 20px;
 }
 
 </style>

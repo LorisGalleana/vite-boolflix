@@ -38,12 +38,12 @@ import { store } from '../store';
 
 .series-container {
     color: white;
-    justify-content: center;
+    justify-content: space-between;
     display: flex;
     flex-wrap: wrap;
 }
 .series {
-    width: calc(100% / 4);
+    width: calc(100% / 4 - 40px);
     padding: 0 5px 50px;
 }
 .empty {

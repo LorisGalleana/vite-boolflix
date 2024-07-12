@@ -21,16 +21,17 @@ import { store } from '../store';
 
 
 <template>
+    <div v-if="store.searchContent == '' " class="empty">
+        COSA VUOI VEDERE OGGI?
+    </div>
     <div class="film-found" v-if="store.searchContent !== '' ">
         FILM TROVATI:
     </div>
   <div class="film-container">
     
         <div class="film" v-for="film in store.filmsList" :key="film.id" v-if="store.searchContent !== '' " >
-            
             <FilmCard :info="film" />
         </div>
-        <div v-else class="empty">COSA VUOI VEDERE OGGI?</div>
   </div>
     
 </template>
@@ -41,12 +42,12 @@ import { store } from '../store';
 
 .film-container {
     color: white;
-    justify-content: center;
+    justify-content: space-between;
     display: flex;
     flex-wrap: wrap;
 }
 .film {
-    width: calc(100% / 4);
+    width: calc(100% / 4 - 40px);
     padding: 0 5px 50px;
 }
 .empty {

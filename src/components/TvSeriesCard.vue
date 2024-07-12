@@ -6,6 +6,9 @@ import {store, convertLanguage} from '../store';
         data() {
             return {
                 store,
+                imageAvailable: true,
+                altText1: 'IMMAGINE NON DISPONIBILE',
+                altText2: 'PASSA SOPRA CON IL MOUSE',
             }
         },
         props:['infotv'],
@@ -27,7 +30,19 @@ import {store, convertLanguage} from '../store';
   
   <div class="tv-series-card">
     <div class="poster-image">
-        <img :src="store.posterIMG + infotv.poster_path " alt="" class="cover-image">
+        <div class="image-container" :class="{ 'no-image': !imageAvailable }">
+            <img
+            v-if="imageAvailable"
+            :src="store.posterIMG + infotv.poster_path"
+            @error="imageAvailable = false"
+            alt=""
+            class="cover-image"
+            />
+            <div v-else class="alt-text">
+                <div>{{ altText1 }} </div>
+                <div>{{ altText2 }}</div>    
+            </div>
+        </div>
         <div class="black-screen">
             <div class="hide">
                 <div class="tv-series-title">{{ infotv.name }}</div>
@@ -86,8 +101,8 @@ import {store, convertLanguage} from '../store';
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 100%;
+    height: 475px;
+    width: 325px;
 }
 .black-screen:hover .hide {
     display: block;
@@ -97,11 +112,31 @@ import {store, convertLanguage} from '../store';
     overflow: auto;
 }
 .cover-image {
-    width: 100%;
-    height: 500px;
+    width: 325px;
+    height: 475px;
 }
 .overview {
     margin: 5%;
+}
+.image-container {
+  position: relative;
+  width: 325px; /* Imposta la larghezza desiderata */
+  height: 475px; /* Imposta l'altezza desiderata */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-image {
+  background-color: #f0f0f0; /* Colore di sfondo quando l'immagine non è disponibile */
+}
+
+.alt-text {
+  position: absolute;
+  color: #000;
+  font-size: 16px;
+  text-align: center;
+  
 }
 
 

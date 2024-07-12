@@ -9,7 +9,7 @@ export const store = reactive({
     apiKey:"api_key=43c9d549239b8a34c26493205a7c00a7",
     language:"language=it",
     searchContent: "",
-    posterIMG: "https://image.tmdb.org/t/p/w342/"
+    posterIMG: "https://image.tmdb.org/t/p/w185/"
     
 })
 
