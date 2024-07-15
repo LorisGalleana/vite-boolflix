@@ -17,9 +17,9 @@ import {store, convertLanguage} from '../store';
                 return Math.ceil((this.info.vote_average /2))
             },
             convertLanguage,
-            emptyStars() {
+            emptyStars(maxstars) {
                 // Calcola il numero di stelle vuote da visualizzare
-                return 5 - this.calcVote(); // 5 stelle totali - stelle piene
+                return maxstars - this.calcVote(); // 5 stelle totali - stelle piene
             }
         }          
     }
@@ -54,7 +54,7 @@ import {store, convertLanguage} from '../store';
                 </div>
                 <div class="vote" >
                     <span class="star" v-for="n in calcVote()" :key="'star-' + n"><i class="fa-solid fa-star"></i></span>
-                    <span class="empty-star" v-for="n in emptyStars()" :key="'empty-star-' + n"><i class="fa-regular fa-star"></i></span>
+                    <span class="empty-star" v-for="n in emptyStars(5)" :key="'empty-star-' + n"><i class="fa-regular fa-star"></i></span>
                 </div>
                 <div class="overview">
                     {{ info.overview }}

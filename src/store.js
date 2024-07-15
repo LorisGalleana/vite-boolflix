@@ -4,8 +4,10 @@ import axios from 'axios'
 export const store = reactive({
     filmsList: [],
     tvSeriesList: [],
+    actorsList: [],
     queryFilmUrl:"https://api.themoviedb.org/3/search/movie?query=",
     queryTvUrl:"https://api.themoviedb.org/3/search/tv?query=",
+    actorsUrl: "https://api.themoviedb.org/3/tv/{series_id}/aggregate_credits",
     apiKey:"api_key=43c9d549239b8a34c26493205a7c00a7",
     language:"language=it",
     searchContent: "",
@@ -83,4 +85,24 @@ export function convertLanguage(langCode) {
       default:
       return langCode;
   }
+}
+
+export function getActors(card_id, n_actors) {
+  if (!card_id || store.actorsList[card_id]) {
+    return;
+  }
+  
+  const endPointActors = `https://api.themoviedb.org/3/tv/${card_id}/aggregate_credits?${store.apiKey}`;
+      
+
+  axios.
+    get(endPointActors)
+    .then(res => {
+      console.log('Updated actors list:',res.data.cast);
+      store.actorsList[card_id] = res.data.cast.slice(0, n_actors);
+    })
+    .catch(err => {
+      console.log(err)
+      store.actorsList[card_id] = [];
+    })
 }

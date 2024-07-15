@@ -1,5 +1,5 @@
 <script>
-import {store, convertLanguage} from '../store';
+import {store, convertLanguage, getActors} from '../store';
 
     export default {
         name: 'TvseriesCard',
@@ -9,7 +9,12 @@ import {store, convertLanguage} from '../store';
                 imageAvailable: true,
                 altText1: 'IMMAGINE NON DISPONIBILE',
                 altText2: 'PASSA SOPRA CON IL MOUSE',
+                actors: [],
             }
+        },
+        mounted() {
+        // Chiama getActors quando il componente è montato
+        getActors(this.infotv.id, 5); // primi 5 attori
         },
         props:['infotv'],
         methods: {
@@ -17,11 +22,30 @@ import {store, convertLanguage} from '../store';
                 return Math.ceil((this.infotv.vote_average /2))
             },
             convertLanguage,
-            emptyStars() {
+            emptyStars(maxstars) {
                 // Calcola il numero di stelle vuote da visualizzare
-                return 5 - this.calcVote(); // 5 stelle totali - stelle piene
+                return maxstars - this.calcVote(); // 5 stelle totali - stelle piene
+            },
+            loadActors() {
+                if (!this.store.actorsList[this.infotv.id]) {
+                    getActors(this.infotv.id, 5);
+                } else {
+                    this.actors = this.store.actorsList[this.infotv.id];
+                }
             }
-        }          
+        },
+        watch: {
+            'store.actorsList': {
+                handler(newVal) {
+                    if (newVal[this.infotv.id]) {
+                        this.actors = newVal[this.infotv.id];
+                        console.log('Updated actors:', this.actors);
+                    }
+                },
+                deep: true
+            }
+        }
+          
     }
 </script>
 
@@ -43,7 +67,7 @@ import {store, convertLanguage} from '../store';
                 <div>{{ altText2 }}</div>    
             </div>
         </div>
-        <div class="black-screen">
+        <div class="black-screen" @mouseenter="loadActors">
             <div class="hide">
                 <div class="tv-series-title">{{ infotv.name }}</div>
                 <div v-if="infotv.name !== infotv.original_name" class="tv-series-title-original">
@@ -54,11 +78,14 @@ import {store, convertLanguage} from '../store';
                 </div>
                 <div class="vote" >
                     <span class="star" v-for="n in calcVote()" :key="'star-' + n"><i class="fa-solid fa-star"></i></span>
-                    <span class="empty-star" v-for="n in emptyStars()" :key="'empty-star-' + n"><i class="fa-regular fa-star"></i></span>
+                    <span class="empty-star" v-for="n in emptyStars(5)" :key="'empty-star-' + n"><i class="fa-regular fa-star"></i></span>
                 </div>
                 <div class="overview">
                     {{ infotv.overview }}
                 </div>
+                <ul>
+                    <li v-for="actor in actors" :key="actor.id">{{ actor.name }}</li>
+                </ul>
             </div>
         </div>
     </div>
