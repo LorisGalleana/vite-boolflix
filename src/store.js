@@ -88,6 +88,28 @@ export function convertLanguage(langCode) {
 }
 
 export function getActors(card_id, n_actors) {
+  if (store.searchContent === "") {
+      store.actorsList = [];
+      return;
+  }
+  
+  const endPointActors = `https://api.themoviedb.org/3/tv/${card_id}/aggregate_credits?${store.apiKey}`;
+      
+
+  axios.
+    get(endPointActors)
+    .then(res => {
+      console.log(res.data.cast);
+      store.actorsList = res.data.cast.slice(0, n_actors);
+    })
+    .catch(err => {
+      console.log(err)
+      store.actorsList = [];
+    })
+}
+
+
+/* export function getActors(card_id, n_actors) {
   if (!card_id || store.actorsList[card_id]) {
     return;
   }
@@ -105,4 +127,4 @@ export function getActors(card_id, n_actors) {
       console.log(err)
       store.actorsList[card_id] = [];
     })
-}
+} */

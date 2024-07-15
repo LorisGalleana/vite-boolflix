@@ -26,13 +26,14 @@ import {store, convertLanguage, getActors} from '../store';
                 // Calcola il numero di stelle vuote da visualizzare
                 return maxstars - this.calcVote(); // 5 stelle totali - stelle piene
             },
-            loadActors() {
+            getActors,
+            /* loadActors() {
                 if (!this.store.actorsList[this.infotv.id]) {
                     getActors(this.infotv.id, 5);
                 } else {
                     this.actors = this.store.actorsList[this.infotv.id];
                 }
-            }
+            } */
         },
         watch: {
             'store.actorsList': {
@@ -67,7 +68,7 @@ import {store, convertLanguage, getActors} from '../store';
                 <div>{{ altText2 }}</div>    
             </div>
         </div>
-        <div class="black-screen" @mouseenter="loadActors">
+        <div class="black-screen">
             <div class="hide">
                 <div class="tv-series-title">{{ infotv.name }}</div>
                 <div v-if="infotv.name !== infotv.original_name" class="tv-series-title-original">
