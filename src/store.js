@@ -95,7 +95,6 @@ export function getActors(card_id, n_actors) {
   
   const endPointActors = `https://api.themoviedb.org/3/tv/${card_id}/aggregate_credits?${store.apiKey}`;
       
-
   axios.
     get(endPointActors)
     .then(res => {
