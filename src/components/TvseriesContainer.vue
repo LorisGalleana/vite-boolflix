@@ -57,5 +57,3 @@ import { store } from '../store';
 
 
 </style>
-
-<!-- //push -->d

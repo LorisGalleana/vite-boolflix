@@ -1,5 +1,6 @@
 <script>
 import {store, convertLanguage} from '../store';
+import axios from 'axios'
 
     export default {
         name: 'FilmCard',
@@ -10,6 +11,7 @@ import {store, convertLanguage} from '../store';
                 imageAvailable: true,
                 altText1: 'IMMAGINE NON DISPONIBILE',
                 altText2: 'PASSA SOPRA CON IL MOUSE',
+                actorsList: [],
             }
         },
         methods: {
@@ -20,8 +22,32 @@ import {store, convertLanguage} from '../store';
             emptyStars(maxstars) {
                 // Calcola il numero di stelle vuote da visualizzare
                 return maxstars - this.calcVote(); // 5 stelle totali - stelle piene
+            },
+            getActors(card_id, n_actors) {
+                if (store.searchContent === "") {
+                    actorsList = [];
+                    return;
+                }
+                
+                const endPointActors = `https://api.themoviedb.org/3/movie/${card_id}/credits?${store.apiKey}`;
+                
+                    
+                axios.
+                    get(endPointActors)
+                    .then(res => {
+                    console.log(res.data.cast);
+                    this.actorsList = res.data.cast.slice(0, n_actors);
+                    })
+                    .catch(err => {
+                    console.log(err)
+                    actorsList = [];
+                    });
             }
-        }          
+        },
+        mounted() {
+        // Chiama getActors quando il componente è montato
+            this.getActors(this.info.id, 5); // primi 5 attori
+        },          
     }
 </script>
 
@@ -59,6 +85,9 @@ import {store, convertLanguage} from '../store';
                 <div class="overview">
                     {{ info.overview }}
                 </div>
+                <ul>
+                    <li v-for="actor in actorsList" :key="actor.id">{{ actor.name }} nel ruolo di {{ actor.character }} </li>
+                </ul>
             </div>
         </div>
     </div>

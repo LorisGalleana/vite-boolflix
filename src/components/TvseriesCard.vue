@@ -1,5 +1,6 @@
 <script>
-import {store, convertLanguage, getActors} from '../store';
+import {store, convertLanguage} from '../store';
+import axios from 'axios'
 
     export default {
         name: 'TvseriesCard',
@@ -9,12 +10,8 @@ import {store, convertLanguage, getActors} from '../store';
                 imageAvailable: true,
                 altText1: 'IMMAGINE NON DISPONIBILE',
                 altText2: 'PASSA SOPRA CON IL MOUSE',
-                actors: [],
+                actorsList: [],
             }
-        },
-        mounted() {
-        // Chiama getActors quando il componente è montato
-        getActors(this.infotv.id, 5); // primi 5 attori
         },
         props:['infotv'],
         methods: {
@@ -26,26 +23,31 @@ import {store, convertLanguage, getActors} from '../store';
                 // Calcola il numero di stelle vuote da visualizzare
                 return maxstars - this.calcVote(); // 5 stelle totali - stelle piene
             },
-            getActors,
-            /* loadActors() {
-                if (!this.store.actorsList[this.infotv.id]) {
-                    getActors(this.infotv.id, 5);
-                } else {
-                    this.actors = this.store.actorsList[this.infotv.id];
+            getActors(card_id, n_actors) {
+                if (store.searchContent === "") {
+                    actorsList = [];
+                    return;
                 }
-            } */
-        },
-        watch: {
-            'store.actorsList': {
-                handler(newVal) {
-                    if (newVal[this.infotv.id]) {
-                        this.actors = newVal[this.infotv.id];
-                        console.log('Updated actors:', this.actors);
-                    }
-                },
-                deep: true
+                
+                const endPointActors = `https://api.themoviedb.org/3/tv/${card_id}/aggregate_credits?${store.apiKey}`;
+                
+                    
+                axios.
+                    get(endPointActors)
+                    .then(res => {
+                    console.log(res.data.cast);
+                    this.actorsList = res.data.cast.slice(0, n_actors);
+                    })
+                    .catch(err => {
+                    console.log(err)
+                    actorsList = [];
+                    });
             }
-        }
+        },
+        mounted() {
+        // Chiama getActors quando il componente è montato
+            this.getActors(this.infotv.id, 5); // primi 5 attori
+        },
           
     }
 </script>
@@ -85,7 +87,7 @@ import {store, convertLanguage, getActors} from '../store';
                     {{ infotv.overview }}
                 </div>
                 <ul>
-                    <li v-for="actor in actors" :key="actor.id">{{ actor.name }}</li>
+                    <li v-for="actor in actorsList" :key="actor.id">{{ actor.name }} nel ruolo di {{ actor.roles[0].character }}</li>
                 </ul>
             </div>
         </div>
@@ -170,5 +172,3 @@ import {store, convertLanguage, getActors} from '../store';
 
 </style>
 
-
-<!-- //push -->
